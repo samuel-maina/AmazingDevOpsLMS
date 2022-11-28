@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class AmazingDevOpsLmsApplication {
 
 	public static void main(String[] args) {
+            String m="";
 		SpringApplication.run(AmazingDevOpsLmsApplication.class, args);
 	}
 
