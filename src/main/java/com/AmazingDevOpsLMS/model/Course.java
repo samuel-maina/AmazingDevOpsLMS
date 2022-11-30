@@ -4,8 +4,11 @@
  */
 package com.AmazingDevOpsLMS.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,10 +23,11 @@ public class Course {
     private String id;
     private String name;
     private String description;
+    @JsonIgnore
     @ManyToOne
     private Program program;
     
-    @OneToMany(mappedBy="course")
+    @OneToMany(mappedBy="course", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Cluster> cluster;
 
     public String getId() {
@@ -66,11 +70,5 @@ public class Course {
         this.cluster = cluster;
     }
 
-
-
-    
-    
-    
-    
     
 }

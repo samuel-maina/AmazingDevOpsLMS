@@ -4,6 +4,7 @@
  */
 package com.AmazingDevOpsLMS.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,11 +15,12 @@ import javax.persistence.ManyToOne;
  * @author samuel
  */
 @Entity
-class Cluster {
+public class Cluster {
     @Id
     private String id;
     private LocalDate start;
     private LocalDate End;
+    @JsonIgnore
     @ManyToOne
     private Course course;
 

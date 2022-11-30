@@ -4,8 +4,11 @@
  */
 package com.AmazingDevOpsLMS.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -14,12 +17,13 @@ import javax.persistence.OneToMany;
  * @author samuel
  */
 @Entity
-class Program {
+public class Program {
 
     @Id
     private String Id;
     private String name;
-    @OneToMany(mappedBy = "program")
+    @JsonIgnore
+    @OneToMany(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Course> course;
 
     public String getId() {

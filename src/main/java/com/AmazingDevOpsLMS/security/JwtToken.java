@@ -6,8 +6,8 @@ package com.AmazingDevOpsLMS.security;
  */
 public class JwtToken {
 
-    String type;
-    String value;
+    private String type;
+    private String value;
 
     public String getType() {
         return type;
