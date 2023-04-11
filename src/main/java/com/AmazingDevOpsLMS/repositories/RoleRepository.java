@@ -15,7 +15,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @version 1.0
  */
-public interface RoleRepository extends CrudRepository<Role, String> {
+public interface RoleRepository extends CrudRepository<Role, Integer> {
 
     /**
      * finds role by roleType

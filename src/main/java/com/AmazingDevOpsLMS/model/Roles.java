@@ -13,5 +13,5 @@ package com.AmazingDevOpsLMS.model;
  * @version 1.0
  */
 public enum Roles {
-    ADMINISTRATION,STUDENT
+    STUDENT,INSTRUCTOR,ADMINISTRATOR
 }

@@ -1,6 +1,5 @@
 package com.AmazingDevOpsLMS.security;
 
-
 import com.AmazingDevOpsLMS.model.User;
 import com.AmazingDevOpsLMS.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
         User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User name not found"));
-
+System.out.println(user);
         return UserDetailsImpl.build(user);
     }
 }
+

@@ -1,15 +1,14 @@
 package com.AmazingDevOpsLMS.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  * Defines user and role relation/assignment
@@ -23,25 +22,26 @@ import javax.persistence.Table;
  * @version 1.0
  */
 @Entity
-@Table(name = "user_roles_t")
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"role", "user"})})
 public class UserRole implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id; // unique user-role assignment identifier
     //@JsonIgnore
+    @JoinColumn(name="user")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private User user; // user object/instance
-
+@JoinColumn(name="role")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    private Role roles; // role object/instance
+    private Role role; // role object/instance
 
     /**
      *
      * @return userId
      */
     public String getUser() {
-        return user.getId();
+        return user.getEmail();
     }
 
     /**
@@ -57,7 +57,7 @@ public class UserRole implements Serializable {
      * @return roleTypes
      */
     public Roles getUserRole() {
-        return roles.getRoleType();
+        return role.getRoleType();
 
     }
 
@@ -65,8 +65,8 @@ public class UserRole implements Serializable {
      *
      * @param roles
      */
-    public void setRoles(Role roles) {
-        this.roles = roles;
+    public void setRoles(Role role) {
+        this.role = role;
     }
 
     /**
@@ -79,9 +79,6 @@ public class UserRole implements Serializable {
     
 
 
-    @Override
-    public String toString() {
-        return "UserRole" + "id=" + id + ", user=" + user.getId();
-    }
+
 
 }

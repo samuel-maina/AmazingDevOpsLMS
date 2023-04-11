@@ -12,7 +12,6 @@
  */
 package com.AmazingDevOpsLMS.controllers;
 
-
 import com.AmazingDevOpsLMS.model.User;
 import com.AmazingDevOpsLMS.security.JwtToken;
 import com.AmazingDevOpsLMS.security.JwtUtils;
@@ -35,7 +34,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 
 public class AuthController {
@@ -49,8 +48,6 @@ public class AuthController {
     @Autowired
     private JwtUtils jwtUtils;
 
-
-
     /**
      * Login process handler for mobile devices
      *
@@ -62,8 +59,8 @@ public class AuthController {
      */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody User user, Model model) {
-
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getId(), user.getPassword()));
+        System.out.println(user);
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
         JwtToken jwtToken = new JwtToken();
@@ -75,14 +72,11 @@ public class AuthController {
         return new ResponseEntity<>(jwtToken, HttpStatus.OK);
     }
 
-
     /**
      * error 401 handler
      *
      * @return exception details and response code 401
      */
-
-
     /**
      * checks whether a JWT token is less than seven hours to expiry only used
      * by mobile client for auto login if true login auto-login fails on the

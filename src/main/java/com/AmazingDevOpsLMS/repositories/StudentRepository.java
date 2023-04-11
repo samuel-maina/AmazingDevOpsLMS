@@ -4,13 +4,13 @@
  */
 package com.AmazingDevOpsLMS.repositories;
 
-import com.AmazingDevOpsLMS.model.Cluster;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import com.AmazingDevOpsLMS.model.Student;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  *
  * @author samuel
  */
-public interface ClusterRepository extends PagingAndSortingRepository<Cluster,String>{
+public interface StudentRepository extends CrudRepository<Student,String> {
     
 }

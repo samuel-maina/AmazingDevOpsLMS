@@ -69,8 +69,9 @@ public class WebSecConfig extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                    .antMatcher("/api/v1/**")
-                   .authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users/").hasAuthority(Roles.ADMINISTRATION.name());
+                    .antMatcher("/api/v2/**")
+                   .authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users/").hasAuthority(Roles.ADMINISTRATOR.name()).and()
+                    .authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/program_registration/apply/**").hasAuthority(Roles.STUDENT.name());
         
             http.addFilterBefore((Filter) authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         }

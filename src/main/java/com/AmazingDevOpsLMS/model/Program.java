@@ -6,11 +6,14 @@ package com.AmazingDevOpsLMS.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 
 /**
  *
@@ -22,9 +25,14 @@ public class Program {
     @Id
     private String Id;
     private String name;
-    @JsonIgnore
+    @Column(length = 1000)
+    private String description;
+
+    //@JsonIgnore
     @OneToMany(mappedBy = "program", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Course> course;
+    private Set<Course> course;
+    
+    
 
     public String getId() {
         return Id;
@@ -42,13 +50,18 @@ public class Program {
         this.name = name;
     }
 
-    public List<Course> getCourse() {
-        return course;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCourse(List<Course> course) {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCourse(Set<Course> course) {
         this.course = course;
     }
 
-    
+
+
 }

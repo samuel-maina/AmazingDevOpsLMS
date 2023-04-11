@@ -14,26 +14,29 @@ import org.hibernate.annotations.OnDeleteAction;
 
 /**
  * Class defines a user role object
- * 
+ *
  * @author Samuel Maina
- * 
+ *
  * Role.java
- * 
+ *
  * 10-10-2021
- * 
+ *
  * @version 1.0
  */
 @Table(name = "roles_t")
 @Entity
 public class Role {
-@Id
+
+    @Id
+    private int id;
+
     @Column(name = "role_type")
     private Roles roleType; // defines type of role
     @Column
     private String description; //short description of the role
 
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JsonIgnore
     private List<UserRole> userRoles; //list of userRoles
 
@@ -85,4 +88,13 @@ public class Role {
         this.description = description;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
 }

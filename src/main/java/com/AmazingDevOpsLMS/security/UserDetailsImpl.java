@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * @author samuel
  */
 public class UserDetailsImpl implements UserDetails {
-    private String userId;
+    
     private String firstName;
     private String secondName;
     @JsonIgnore
@@ -24,21 +24,22 @@ public class UserDetailsImpl implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private boolean enabled;
     private boolean locked;
+    private String email;
 
-    public UserDetailsImpl(String userId, String firstName, String secondName, String password, Collection<? extends GrantedAuthority> authorities, boolean enabled,boolean locked) {
-        this.userId = userId;
+    public UserDetailsImpl( String firstName, String secondName, String password, Collection<? extends GrantedAuthority> authorities, boolean enabled,boolean locked,String email) {
+        
         this.firstName = firstName;
         this.secondName = secondName;
         this.password = password;
         this.authorities = authorities;
         this.enabled = enabled;
         this.locked=locked;
+        this.email=email;
     }
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getUserRoles().stream().map(role -> new SimpleGrantedAuthority(role.getUserRole().toString())).collect(Collectors.toList());
-        System.out.println("Granted authorities "+authorities.get(1));
-        return new UserDetailsImpl(user.getId(), user.getFirstname(), user.getLastname(), user.getPassword(), authorities, user.isEnabled(),user.isLocked());
+        List<GrantedAuthority> authorities = user.getUserRoles().stream().map(userRole -> new SimpleGrantedAuthority(userRole.getUserRole().toString())).collect(Collectors.toList());
+        return new UserDetailsImpl( user.getFirstname(), user.getLastname(), user.getPassword(), authorities, user.isEnabled(),user.isLocked(),user.getEmail());
     }
 
     @Override
@@ -53,7 +54,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return userId;
+        return email;
     }
 
     @Override

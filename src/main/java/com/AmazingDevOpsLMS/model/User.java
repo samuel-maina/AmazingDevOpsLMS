@@ -5,11 +5,16 @@
 package com.AmazingDevOpsLMS.model;
 
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
@@ -18,15 +23,16 @@ import javax.validation.constraints.NotNull;
  * @author samuel
  */
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
-    @Id
-    private String Id;
     @NotNull
     private String firstname;
     @NotNull
     private String lastname;
+    @Id
     @NotNull
+    @Column(unique = true)
     private String email;
     @NotNull
     private String phone;
@@ -38,18 +44,12 @@ public class User {
     private boolean locked; // is account locked
 
     private String password;
-    
-        @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+
+    private int activationCode;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<UserRole> userRoles; //list of userRoles assigned to te user
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String Id) {
-        this.Id = Id;
-    }
-
+    
     public String getFirstname() {
         return firstname;
     }
@@ -121,6 +121,16 @@ public class User {
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
+
+    public int getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(int activationCode) {
+        this.activationCode = activationCode;
+    }
+
     
-    
+   
+
 }
